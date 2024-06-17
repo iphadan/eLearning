@@ -34,3 +34,5 @@ def contact(request):
 def GetStart(request):
 
     return render(request,'index.html')
+def handle404(request,exception):
+    return render(request,'404.html')

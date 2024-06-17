@@ -15,20 +15,19 @@ SECRET_KEY = 'django-insecure-9c%xg@#lvw754vv-i4zts+4l1ife1%*vadb*!)qw87y3r-j*m9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'eSchool',
-   
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+     'eSchool',
 ]
 
 MIDDLEWARE = [
@@ -121,5 +120,8 @@ STATICFILES_DIRS = [
    os.path.join (BASE_DIR,'staticfile'),
   
 ]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Root directory for collecting static files
