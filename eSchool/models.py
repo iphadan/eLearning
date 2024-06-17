@@ -36,5 +36,5 @@ class Student(models.Model):
     def __str__(self) -> str:
         return self.firstName + " " + self.lastName
 class Payment(models.Model):
-    student=models.ForeignKey(Student)
-    course=models.ForeignKey(Course)
+    student=models.ForeignKey(Student,on_delete=models.CASCADE)
+    course=models.ForeignKey(Course,on_delete=models.CASCADE)

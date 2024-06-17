@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('',home,name="home-page"),
-    path('course',course,name="course")
+    path('course/',course,name="course")
 ]
 
 
