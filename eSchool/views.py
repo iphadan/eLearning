@@ -1,12 +1,20 @@
 from django.shortcuts import render
-
+from . import models
 # Create your views here.
 
 
 def home(request):
+    students = models.Student.objects.all()
+    courses=models.Course.objects.all()
+
+
+    context={
+        "students":students,
+        "courses":courses
+    }
     
 
-    return render(request,'index.html')
+    return render(request,'index.html',context=context)
 
 def about(request):
 

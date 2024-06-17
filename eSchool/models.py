@@ -15,7 +15,7 @@ class Course(models.Model):
     coursePhoto=models.ImageField(upload_to='upload/coursePhoto',blank=True,null=True,default='upload/defaultPhoto/defaultUserImg.jpeg')
     courseTeacher=models.CharField(max_length=100)
     #teacher might be another user of the system if so then we will make its own model to save all details including certifications
-    teacherDescription=models.TextField
+    teacherDescription=models.TextField(default="")
     teacherPhoto=models.ImageField(upload_to='upload/teacherPhoto',blank=True,null=True,default='upload/defaultPhoto/defaultUserImg.jpeg')
     price=models.FloatField(default=0.0,null=True,blank=True)
 
