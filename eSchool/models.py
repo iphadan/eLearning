@@ -3,11 +3,11 @@ from django.contrib.auth.models import User
 #functions
 def video_directory_path(instance, filename):
     # file will be uploaded to 'upload/videos/<section_title>/<filename>'
-    return 'upload/videos/{0}/{1}'.format(instance.section.title, filename)
+    return 'upload/videos/{0}/{1}'.format(instance.section.course.title+"/"+instance.section.title, filename)
 
 def file_directory_path(instance, filename):
     # file will be uploaded to 'upload/files/<video_title>/<filename>'
-    return 'upload/files/{0}/{1}'.format(instance.video.title, filename)
+    return 'upload/files/{0}/{1}'.format(instance.video.section.course.title+"/"+instance.video.title, filename)
 # Create your models here.
 class Category(models.Model):
     name=models.CharField(max_length=50)
@@ -60,7 +60,7 @@ class Video(models.Model):
  
     section=models.ForeignKey(Section,on_delete=models.CASCADE)   
     title=models.CharField(max_length=70)
-    videoUrl= models.FileField(upload_to=video_directory_path)
+    videoUrl= models.FileField(upload_to=video_directory_path,max_length=255)
    
 
     def __str__(self) -> str:
@@ -70,7 +70,7 @@ class VideoRelatedFile(models.Model):
 
     video=models.ForeignKey(Video,on_delete=models.CASCADE)
     title=models.CharField(max_length=70)
-    fileUrl= models.FileField(upload_to=file_directory_path)
+    fileUrl= models.FileField(upload_to=file_directory_path,max_length=255)
    
     def __str__(self) -> str:
         return self.title + " -> " + self.video.title
