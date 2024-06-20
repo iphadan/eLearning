@@ -17,10 +17,11 @@ class Category(models.Model):
 
 class Course(models.Model):
     title=models.CharField(max_length=100)
-    description=models.TextField
+    description=models.TextField(default="")
     category=models.ForeignKey(Category,on_delete=models.SET_NULL,null=True,blank=True)
     coursePhoto=models.ImageField(upload_to='upload/coursePhoto',blank=True,null=True,default='upload/defaultPhoto/defaultUserImg.jpeg')
     courseTeacher=models.CharField(max_length=100)
+    courseStudentsCount=models.PositiveIntegerField(default=0)
     #teacher might be another user of the system if so then we will make its own model to save all details including certifications
     teacherDescription=models.TextField(default="")
     teacherPhoto=models.ImageField(upload_to='upload/teacherPhoto',blank=True,null=True,default='upload/defaultPhoto/defaultUserImg.jpeg')
@@ -50,12 +51,14 @@ class Payment(models.Model):
     
 
 #new added models 
+
 class Section(models.Model):
     course=models.ForeignKey(Course,on_delete=models.CASCADE)
     title=models.CharField(max_length=70)
     description = models.TextField()
     def __str__(self) -> str:
         return self.title + " -> " + self.course.title 
+    
 class Video(models.Model):
  
     section=models.ForeignKey(Section,on_delete=models.CASCADE)   

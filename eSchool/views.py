@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render ,redirect
 from . import models
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import login , logout ,authenticate
 # Create your views here.
 
 
@@ -22,7 +23,7 @@ def about(request):
 
     return render(request,'courses.html')
 
-def course(request):
+def courseDetail(request,id):
 
     return render(request,'courses.html')
 
@@ -84,8 +85,55 @@ def registerStudent(request):
 
 
 
-    ...
+  
+
 def registerCourse(request):
+    if request.method == "POST":
+        title=request.POST.get('title')
+        description=request.POST.get('description')
+        category=request.POST.get('category')
+        price=request.POST.get('price')
+        coursePhoto=request.FILES.get('coursePhoto')
+        courseTeacher=request.POST.get('courseTeacher')
+        teacherDescription=request.POST.get('teacherDescription')
+        teacherPhoto=request.FILES.get('teacherPhoto')
+        try:
+            course=models.Course.objects.create(title=title,description=description,category = category,coursePhoto = coursePhoto,courseTeacher = courseTeacher,teacherDescription=teacherDescription,teacherPhoto = teacherPhoto,price=price)
+            messages.success(request,"Course Successfully Added!")
+            return render(request,'index.html')
+        except Exception:
+            messages.success(request,"Something went wrong, Please try again!")
+            return render(request,'registerCourse.html')
+    else:
+        return render(request,'registerCourse.html')
+
+    
+def login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        try:
+           user = authenticate(username = username, password=password)
+           if user:
+                messages.success(request,'Successfully logged in ')
+                return redirect('home-page')
+           else:
+                messages.error(request,'Username or Password is Incorrect ')
+                return render(request,'login.html')
+               
+        
+        except:
+            messages.error(request,'Something went wrong, try again later ')
+            return render(request,'login.html')
+        
     ...
+def logout(request):
+    logout(request)
+    messages.success(request,'Successfully Logged out')
+    return render(request,'login.html')
+
+
+
+    
 def handle404(request,exception):
     return render(request,'404.html')
