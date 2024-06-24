@@ -18,13 +18,17 @@ from . import settings
 from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls.static import static 
-
+from eSchool import views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns # new
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('eLearning/', include('eSchool.urls'))
+    path('eLearning/', include('eSchool.urls')),
+    path('', views.landing,name="landing"),
+
+
+    
     
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 

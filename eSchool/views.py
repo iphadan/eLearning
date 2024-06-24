@@ -18,12 +18,36 @@ def home(request):
     
 
     return render(request,'index.html',context=context)
+def landing(request):
+    students = models.Student.objects.all()
+    courses=models.Course.objects.all()
 
+
+    context={
+        "students":students,
+        "courses":courses
+    }
+    
+
+    return render(request,'home.html',context=context)
 def about(request):
 
     return render(request,'courses.html')
 
 def courseDetail(request,id):
+    try:
+        course=models.Course.objects.get(pk=id)
+        context={
+            "course":course
+        }
+        return render(request,'course-details.html',context)
+  
+    except:
+        messages.info(request,"Course that Does not Exist")
+        return render(request,"home")
+
+    return render(request,'courses.html')
+def course(request):
 
     return render(request,'courses.html')
 
@@ -31,21 +55,29 @@ def learing_path(request):
 
     return render(request,'index.html')
 
-def eventes(request):
+def events(request):
 
-    return render(request,'index.html')
+    return render(request,'events.html')
 
 def priceing(request):
 
-    return render(request,'index.html')
+    return render(request,'pricing.html')
 
 def contact(request):
 
-    return render(request,'index.html')
+    return render(request,'contact.html')
 
-def GetStart(request):
-
-    return render(request,'index.html')
+def learning(request,id):
+    try:
+        course= models.Course.objects.get(id=id)
+        context={
+            'course':course
+        }
+        return render(request,"learning.html",context)
+    except:
+        messages.error(request,"Course Not Found!")
+        return render(request,"404.html")
+    
 def registerStudent(request):
     if request.method == 'POST':
         firstName=request.POST.get('firstName')

@@ -206,14 +206,14 @@
 {% for course in courses %}
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
             <div class="course-item">
-            <a href="#"><img src="{{ course.coursePhoto.url }}" class="img-fluid" alt="..."></a>  
+            <a href="{% url 'learning' id=course.pk %}"><img src="{{ course.coursePhoto.url }}" class="img-fluid" alt="..."></a>  
               <div class="course-content">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                   <h4>Web Development</h4>
                   <p class="price">${{course.price}}</p>
                 </div>
 
-                <h3><a href="#">{{course.title}}</a></h3>
+                <h3><a href="{% url 'learning' id=course.pk %}">{{course.title}}</a></h3>
              
                 <div class="trainer d-flex justify-content-between align-items-center">
                   <div class="trainer-profile d-flex align-items-center">
