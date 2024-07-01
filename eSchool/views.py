@@ -48,8 +48,11 @@ def courseDetail(request,id):
 
     return render(request,'courses.html')
 def course(request):
-
-    return render(request,'courses.html')
+    courses=models.Course.objects.all().order_by('-courseStudentsCount')
+    context={
+        'courses':courses
+    }
+    return render(request,'courses.html',context)
 
 def learing_path(request):
 
