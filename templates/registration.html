@@ -1,0 +1,126 @@
+{% extends 'Account-base.html'%}
+{% load static %}
+{% block content %}
+
+
+  <main id="main" class="main">
+    <a href="{% url 'home' %}">Home</a> / Register
+    <div class="pagetitle">
+      <h1>Registration Form</h1>
+      
+    </div><!-- End Page Title -->
+
+    <section class="section mt-4">
+      {% for message in messages %}
+      
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          {{message}}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    
+  
+      {% endfor %}
+      <div class="row justify-content-center">
+        <div class="col-8">
+            <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title"></h5>
+    
+                  <!-- General Form Elements -->
+                  <form action="{% url 'registerStudent' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                      <label for="username" class="col-sm-2 col-form-label">Username</label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control" name="username" id="username" required>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="firstName" class="col-sm-2 col-form-label">First Name</label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control" name="firstName" id="firstName" required>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label for="lastName" class="col-sm-2 col-form-label">Last Name</label>
+                        <div class="col-sm-12">
+                          <input type="text" class="form-control" name="lastName" id="lastName" required>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="email" class="col-sm-2 col-form-label" >Email</label>
+                        <div class="col-sm-12">
+                          <input type="email" class="form-control" name="email" id="email" required>
+                        </div>
+                      </div>
+                    <div class="row mb-3">
+                      <label for="photo" class="col-sm-2 col-form-label">Phone</label>
+                      <div class="col-sm-12">
+                        <input type="tel" class="form-control" name="phone" id="photo" required>
+                      </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <label for="gender" class="col-sm-2 col-form-label">Gender</label>
+                       <div class="form-check" id="gender">
+                          <input class="form-check-input" type="radio" name="gender" id="male" value="Male">
+                          <label class="form-check-label" for="male">
+                            Male
+                          </label>
+                        </div>
+                     
+
+                        <div class="form-check disabled">
+                          <input class="form-check-input" type="radio" name="gender" id="female" value="Female">
+                          <label class="form-check-label" for="female">
+                            Female
+                          </label>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="photo" class="col-sm-2 col-form-label">Photo</label>
+                        <div class="col-sm-12">
+                          <input type="file" class="form-control" name="photo" id="photo">
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="password" class="col-sm-2 col-form-label">Password</label>
+                        <div class="col-sm-12">
+                          <input type="password" class="form-control" name="password" id="password" required>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="repassword" class="col-sm-2 col-form-label">Confirm Password</label>
+                        <div class="col-sm-12">
+                          <input type="password" class="form-control" name="repassword" id="repassword" required>
+                        </div>
+                      </div>
+<!--                     
+                      <div class="row mb-3">
+                        <label for="inputText" class="col-sm-2 col-form-label">Price</label>
+                        <div class="col-sm-12">
+                          <input type="text" class="form-control" disabled>
+                        </div>
+                      </div> -->
+
+                    <div class="row mb-3">
+                     
+                      <div class="col-sm-10">
+                        <button type="submit" class="btn btn-success">Register</button>
+                      </div>
+                    </div>
+    
+                  </form><!-- End General Form Elements -->
+    
+                </div>
+              </div>
+
+
+
+    </div>  
+    </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  {% endblock %}

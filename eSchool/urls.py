@@ -15,9 +15,9 @@ urlpatterns = [
 
     path('course/<int:id>',courseDetail,name="courseDetail"),
     path('learning/<int:id>',learning,name="learning"),
-        path('events/',learning,name="events"),
+    path('events/',events,name="events"),
 
-    path('pricing/',learning,name="pricing"),
+    path('pricing/',priceing,name="pricing"),
     
 
 

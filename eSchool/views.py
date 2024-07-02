@@ -59,7 +59,6 @@ def learing_path(request):
     return render(request,'index.html')
 
 def events(request):
-
     return render(request,'events.html')
 
 def priceing(request):
@@ -83,12 +82,14 @@ def learning(request,id):
             messages.error(request,"Course Not Found!")
             return render(request,"404.html")
     else :
+        messages.error(request,'Login Before Accessing a Course')
         return render(request,'login.html')
 def registerStudent(request):
     if request.method == 'POST':
         firstName=request.POST.get('firstName')
-        lastName=request.POST.get('lastNmae')
+        lastName=request.POST.get('lastName')
         username=request.POST.get('username')
+        photo=request.FILES.get('photo')
         email=request.POST.get('email')
         gender=request.POST.get('gender')
         phone=request.POST.get('phone')
@@ -97,29 +98,35 @@ def registerStudent(request):
         
 
         if password == repassword:
-            user= None
             try:
-                try :
-                    count = User.objects.get(username=username)
-                    if count:
-                        messages.info(request,"username exist already")
-                        raise Exception
 
-                except Exception:
-                    user=User.objects.create_user(username=username,email=email,password=password,firstName=firstName,lastName=lastName)
-                    student=models.Student.objects.create(user=user,phone=phone,gender=gender)
-                    messages.success(request,f"Dear {student.user.username}, welcome")
+                user = User.objects.create(
+                    username=username,
+                    email=email,
+                    password=password,
+                    first_name=firstName,
+                    last_name=lastName
+                )                
+                user.save()
+                try:
+                    student=models.Student.objects.create(user=user,phone=phone,gender=gender,photo=photo)
+                    messages.success(request,f"Dear User {student.user.username}, welcome !")
                     return render(request,"login.html")
+                except:
+                    user.delete()
+                    messages.error(request,"something went wrong, try again later ")
+                    return render(request,'registration.html')
 
             except Exception:
-                messages.error(request,"something went wrong, try again later ")
-                if not user  :
-                    user.delete()
-                return render(request,'registerStudent.html')
+                
+                messages.error(request,f"User with username {username} exist already! ")
+                return render(request,'registration.html')
 
         else:
             messages.error(request,"your password does\'t match")
-            return render(request,'registerStudent.html')
+            return render(request,'registration.html')
+    return render(request,'registration.html')
+
 
 
 
@@ -153,16 +160,14 @@ def handle404(request,exception):
     return render(request,'404.html')
 
 def loginUser(request):
-    next_url = request.GET.get('next')
     if request.method == 'POST':
         #next_url = "/eLearning/learning/1"
         username = request.POST.get('username')
         password = request.POST.get('password')        
         user = authenticate(username=username, password=password)
+        next_url = request.GET.get('next')
         if user:
             login(request,user)
-            
-            print('next url ===> ',next_url)
             if next_url:
                 return redirect(next_url)
             return redirect('home')

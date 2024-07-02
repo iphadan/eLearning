@@ -42,7 +42,7 @@ class Student(models.Model):
     photo=models.ImageField(upload_to='upload/studentPhoto',blank=True,null=True,default='upload/defaultPhoto/defaultUserImg.jpeg')
     courses=models.ForeignKey(Course,on_delete=models.SET_NULL,null=True,blank=True)
     def __str__(self) -> str:
-        return self.firstName + " " + self.lastName
+        return self.user.first_name + " " + self.user.last_name
 class Payment(models.Model):
     student=models.ForeignKey(Student,on_delete=models.CASCADE)
     course=models.ForeignKey(Course,on_delete=models.CASCADE)
