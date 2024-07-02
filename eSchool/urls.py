@@ -5,10 +5,22 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('',home,name="home-page"),
+    path('',home,name="home"),
     path('course/',course,name="course"),
+
+    path('login/',loginUser,name="login"),
+    path('logout/',logoutUser,name="logout"),
+
+    path('register/',registerStudent,name="registerStudent"),
+
     path('course/<int:id>',courseDetail,name="courseDetail"),
-    path('learning/<int:id>',learning,name="learning")
+    path('learning/<int:id>',learning,name="learning"),
+        path('events/',learning,name="events"),
+
+    path('pricing/',learning,name="pricing"),
+    
+
+
 
 ]
 

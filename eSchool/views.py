@@ -71,16 +71,19 @@ def contact(request):
     return render(request,'contact.html')
 
 def learning(request,id):
-    try:
-        course= models.Course.objects.get(id=id)
-        context={
-            'course':course
-        }
-        return render(request,"learning.html",context)
-    except:
-        messages.error(request,"Course Not Found!")
-        return render(request,"404.html")
-    
+    if request.user.is_authenticated:
+        print(request.user.username)
+        try:
+            course= models.Course.objects.get(id=id)
+            context={
+                'course':course
+            }
+            return render(request,"learning.html",context)
+        except:
+            messages.error(request,"Course Not Found!")
+            return render(request,"404.html")
+    else :
+        return render(request,'login.html')
 def registerStudent(request):
     if request.method == 'POST':
         firstName=request.POST.get('firstName')
@@ -143,32 +146,39 @@ def registerCourse(request):
         return render(request,'registerCourse.html')
 
     
-def login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        try:
-           user = authenticate(username = username, password=password)
-           if user:
-                messages.success(request,'Successfully logged in ')
-                return redirect('home-page')
-           else:
-                messages.error(request,'Username or Password is Incorrect ')
-                return render(request,'login.html')
-               
-        
-        except:
-            messages.error(request,'Something went wrong, try again later ')
-            return render(request,'login.html')
-        
-    ...
-def logout(request):
-    logout(request)
-    messages.success(request,'Successfully Logged out')
-    return render(request,'login.html')
-
 
 
     
 def handle404(request,exception):
     return render(request,'404.html')
+
+def loginUser(request):
+    next_url = request.GET.get('next')
+    if request.method == 'POST':
+        #next_url = "/eLearning/learning/1"
+        username = request.POST.get('username')
+        password = request.POST.get('password')        
+        user = authenticate(username=username, password=password)
+        if user:
+            login(request,user)
+            
+            print('next url ===> ',next_url)
+            if next_url:
+                return redirect(next_url)
+            return redirect('home')
+        else:
+            messages.error(request,'username or password is incorrect')
+            return render(request,'login.html')
+    elif request.user.is_authenticated :
+        return redirect('home')
+    return render(request,'login.html')
+
+
+
+def logoutUser(request):
+    if request.user.is_authenticated :
+        logout(request)
+        messages.info(request,'Logged Out')
+        return render(request,'login.html')
+    else:
+        return render(request,'login.html')
