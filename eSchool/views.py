@@ -61,7 +61,7 @@ def learing_path(request):
 def events(request):
     return render(request,'events.html')
 
-def priceing(request):
+def pricing(request):
 
     return render(request,'pricing.html')
 
@@ -168,7 +168,7 @@ def loginUser(request):
         next_url = request.GET.get('next')
         if user:
             login(request,user)
-            if next_url:
+            if next_url and not next_url == "/eLearning/logout/":
                 return redirect(next_url)
             return redirect('home')
         else:

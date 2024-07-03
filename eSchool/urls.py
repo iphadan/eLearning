@@ -17,7 +17,7 @@ urlpatterns = [
     path('learning/<int:id>',learning,name="learning"),
     path('events/',events,name="events"),
 
-    path('pricing/',priceing,name="pricing"),
+    path('pricing/',pricing,name="pricing"),
     
 
 

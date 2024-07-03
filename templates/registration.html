@@ -5,10 +5,7 @@
 
   <main id="main" class="main">
     <a href="{% url 'home' %}">Home</a> / Register
-    <div class="pagetitle">
-      <h1>Registration Form</h1>
-      
-    </div><!-- End Page Title -->
+    <!-- End Page Title -->
 
     <section class="section mt-4">
       {% for message in messages %}
@@ -24,7 +21,10 @@
         <div class="col-8">
             <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title"></h5>
+                  <div class="pagetitle">
+                    <h1>Registration Form</h1>
+                    
+                  </div>
     
                   <!-- General Form Elements -->
                   <form action="{% url 'registerStudent' %}" method="post" enctype="multipart/form-data">
@@ -90,7 +90,7 @@
                         </div>
                       </div>
                       <div class="row mb-3">
-                        <label for="repassword" class="col-sm-2 col-form-label">Confirm Password</label>
+                        <label for="repassword" class="col-sm-4 col-form-label">Confirm Password</label>
                         <div class="col-sm-12">
                           <input type="password" class="form-control" name="repassword" id="repassword" required>
                         </div>
