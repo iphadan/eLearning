@@ -32,7 +32,7 @@ def landing(request):
     return render(request,'home.html',context=context)
 def about(request):
 
-    return render(request,'courses.html')
+    return render(request,'about.html')
 
 def courseDetail(request,id):
     try:
