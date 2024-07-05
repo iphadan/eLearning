@@ -187,3 +187,20 @@ def logoutUser(request):
         return render(request,'login.html')
     else:
         return render(request,'login.html')
+def sendEmail(request):
+    if request.method == 'POST':
+        name=request.POST.get('name')
+        subject=request.POST.get('subject')
+        email=request.POST.get('email')
+        message=request.POST.get('message')
+
+        try:
+            models.Contact.objects.create(name=name,email=email,subject=subject,message=message)
+            messages.success(request,"Message sent")
+            return render(request,'contact.html')
+        except:
+            messages.error(request,"Message not sent, try again later ")
+            return render(request,'contact.html')
+    else:
+        return render(request,'contact.html')
+

@@ -16,6 +16,9 @@ urlpatterns = [
     path('course/<int:id>',courseDetail,name="courseDetail"),
     path('learning/<int:id>',learning,name="learning"),
     path('events/',events,name="events"),
+        path('contact/',contact,name="contact"),
+         path('sendEmail/',sendEmail,name="sendEmail"),
+
 
     path('pricing/',pricing,name="pricing"),
     

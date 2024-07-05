@@ -9,3 +9,5 @@ admin.site.register(models.Category)
 admin.site.register(models.Section)
 admin.site.register(models.Video)
 admin.site.register(models.VideoRelatedFile)
+admin.site.register(models.Contact)
+
