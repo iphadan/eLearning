@@ -5,7 +5,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-path("",home,name='adminHome')
+path("",home,name='adminHome'),
+path('adminPost/',adminPost,name="adminPost")
+
     
 
 ]
